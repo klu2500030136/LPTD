@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { initLocalStorage } from './utils/mockData';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -29,7 +29,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter> {/* ✅ FIX HERE */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -64,7 +64,7 @@ function App() {
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
