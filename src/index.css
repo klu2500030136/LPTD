@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
+
+  /* Redefine primary to a highly professional energetic blue */
+  --color-primary: #2563eb;
+
+  /* Rich slate grays for text and subtle borders */
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 font-sans antialiased min-h-screen selection:bg-blue-500/20 selection:text-blue-900;
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(at 0% 0%, hsla(210, 100%, 97%, 1) 0, transparent 40%),
+      radial-gradient(at 100% 0%, hsla(280, 100%, 97%, 1) 0, transparent 40%),
+      radial-gradient(at 50% 100%, hsla(190, 100%, 95%, 1) 0, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_#0000000a] ring-1 ring-black/5;
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_#00000012] hover:border-blue-100;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600;
+  }
+
+  .gradient-bg {
+    @apply relative overflow-hidden;
+  }
+
+  .gradient-bg::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-purple-50/40 -z-10;
+  }
+
+  .nav-glass {
+    @apply bg-white/70 backdrop-blur-lg border-b border-white/50 shadow-sm supports-[backdrop-filter]:bg-white/60;
+  }
+}
