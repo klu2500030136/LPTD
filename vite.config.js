@@ -8,5 +8,6 @@ const isGithubPages = process.env.GITHUB_PAGES === 'true';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: isGithubPages ? '/LPTD/' : '/',  // ✅ dynamic base
+  base: isGithubPages ? '/LPTD/' : '/',// ✅ dynamic base
+  plugins: [react(), tailwindcss()],  
 });
