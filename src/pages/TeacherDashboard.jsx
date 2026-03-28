@@ -17,7 +17,8 @@ const TeacherDashboard = () => {
         id: null,
         studentId: '',
         subject: '',
-        marks: ''
+        marks: '',
+        remarks: ''
     });
     const [projectFormData, setProjectFormData] = useState({
         id: null,
@@ -129,7 +130,7 @@ const TeacherDashboard = () => {
             // Update existing mark
             const updatedMarks = marks.map(m =>
                 m.id === formData.id
-                    ? { ...m, studentId: student.id, studentName: student.name, subject: formData.subject, marks: parsedMarks, score, cgpa }
+                    ? { ...m, studentId: student.id, studentName: student.name, subject: formData.subject, marks: parsedMarks, score, cgpa, remarks: formData.remarks }
                     : m
             );
             saveMarks(updatedMarks);
@@ -142,13 +143,14 @@ const TeacherDashboard = () => {
                 subject: formData.subject,
                 marks: parsedMarks,
                 score,
-                cgpa
+                cgpa,
+                remarks: formData.remarks
             };
             saveMarks([...marks, newMark]);
         }
 
         // Reset form
-        setFormData({ id: null, studentId: '', subject: '', marks: '' });
+        setFormData({ id: null, studentId: '', subject: '', marks: '', remarks: '' });
         setIsEditing(false);
     };
 
@@ -157,7 +159,8 @@ const TeacherDashboard = () => {
             id: mark.id,
             studentId: mark.studentId,
             subject: mark.subject,
-            marks: mark.marks
+            marks: mark.marks,
+            remarks: mark.remarks || ''
         });
         setIsEditing(true);
         // Scroll to top
@@ -172,7 +175,7 @@ const TeacherDashboard = () => {
     };
 
     const cancelEdit = () => {
-        setFormData({ id: null, studentId: '', subject: '', marks: '' });
+        setFormData({ id: null, studentId: '', subject: '', marks: '', remarks: '' });
         setIsEditing(false);
     };
 
@@ -315,6 +318,18 @@ const TeacherDashboard = () => {
                                         )}
                                     </div>
 
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Remarks / Feedback (Optional)</label>
+                                        <textarea
+                                            name="remarks"
+                                            value={formData.remarks}
+                                            onChange={handleInputChange}
+                                            placeholder="e.g., Excellent performance, Needs improvement in trigonometry..."
+                                            rows="2"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-900 resize-none"
+                                        ></textarea>
+                                    </div>
+
                                     <div className="pt-4 flex gap-3 flex-col sm:flex-row">
                                         <Button type="submit" fullWidth className={isEditing ? 'bg-amber-500 hover:bg-amber-600 focus:ring-amber-500 text-white' : ''}>
                                             {isEditing ? 'Update Marks' : 'Save Marks'}
@@ -379,6 +394,7 @@ const TeacherDashboard = () => {
                                                 <th className="px-6 py-4 font-semibold text-gray-600">Subject</th>
                                                 <th className="px-6 py-4 font-semibold text-gray-600 text-center">Marks / Score</th>
                                                 <th className="px-6 py-4 font-semibold text-gray-600 text-center">CGPA</th>
+                                                <th className="px-6 py-4 font-semibold text-gray-600">Remarks</th>
                                                 <th className="px-6 py-4 font-semibold text-gray-600 text-right">Actions</th>
                                             </tr>
                                         </thead>
@@ -403,6 +419,11 @@ const TeacherDashboard = () => {
                                                             }`}>
                                                             {item.cgpa}
                                                         </span>
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <div className="text-sm text-gray-700 max-w-[150px] truncate" title={item.remarks}>
+                                                            {item.remarks || '-'}
+                                                        </div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-right">
                                                         <div className="flex justify-end gap-2">

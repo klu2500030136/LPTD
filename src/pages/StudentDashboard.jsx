@@ -274,6 +274,7 @@ const StudentDashboard = () => {
                                                     <th className="px-6 py-4 font-semibold text-gray-600 text-center">Marks (out of 100)</th>
                                                     <th className="px-6 py-4 font-semibold text-gray-600 text-center">Score Percentage</th>
                                                     <th className="px-6 py-4 font-semibold text-gray-600 text-center">CGPA</th>
+                                                    <th className="px-6 py-4 font-semibold text-gray-600">Remarks</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-100">
@@ -301,6 +302,11 @@ const StudentDashboard = () => {
                                                                 item.cgpa >= 7.0 ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'
                                                                 }`}>
                                                                 {item.cgpa}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            <span className="text-sm text-gray-700 inline-block w-full min-w-[150px] max-w-[200px] whitespace-normal">
+                                                                {item.remarks || '-'}
                                                             </span>
                                                         </td>
                                                     </tr>
