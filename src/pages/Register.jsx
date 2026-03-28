@@ -40,12 +40,40 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            // Validation
+            // Core Required Fields Validation
             if (!formData.name || !formData.username || !formData.password) {
                 throw new Error('Please fill in all required fields');
             }
-            if (role === 'student' && !formData.branch) {
-                throw new Error('Please specify your branch');
+
+            // Name validation (only letters and spaces, 3-50 chars)
+            if (!/^[a-zA-Z\s]{3,50}$/.test(formData.name.trim())) {
+                throw new Error('Please enter a valid name (letters and spaces only, min 3 characters)');
+            }
+
+            // Role-specific identity validation
+            if (role === 'student') {
+                // Student ID validation (at least 5 alphanumeric characters)
+                if (!/^[A-Za-z0-9]{5,20}$/.test(formData.username.trim())) {
+                    throw new Error('Please enter a valid ID Number (e.g., CSE20230XX)');
+                }
+
+                // Branch presence and validation
+                if (!formData.branch || !formData.branch.trim()) {
+                    throw new Error('Please specify your branch');
+                }
+                if (!/^[a-zA-Z\s'&.-]{2,50}$/.test(formData.branch.trim())) {
+                    throw new Error('Please enter a valid branch name');
+                }
+            } else if (role === 'teacher') {
+                // Teacher username validation (alphanumeric and underscores)
+                if (!/^[a-zA-Z0-9_]{3,20}$/.test(formData.username.trim())) {
+                    throw new Error('Username must be 3-20 characters long (letters, numbers, underscores)');
+                }
+            }
+
+            // Password length validation
+            if (formData.password.length < 6) {
+                throw new Error('Password must be at least 6 characters long');
             }
 
             // Simulate network request
@@ -80,7 +108,7 @@ const Register = () => {
                             <UserPlus className="h-8 w-8 text-primary" />
                         </div>
                         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Create an Account</h1>
-                        <p className="text-gray-500 mt-2">Join LPTD today</p>
+                        <p className="text-gray-500 mt-2">Join EduManage today</p>
                     </div>
 
                     <Card className="glass border-white/40">
